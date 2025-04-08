@@ -4,13 +4,6 @@
 #include <Arduino.h>
 #include <PID_v1.h>
 
-// Variable definitions for the PID controlle
-double w1_ref, MOT1_cmd; // Reference and command for the motor
-extern double w1;        // External variable for the motor speed
-
-// PID PID_w1(&w1, &MOT1_cmd, &w1_ref, kp, ki, kd, DIRECT);
-Controller controller1(&w1, &MOT1_cmd, &w1_ref); // Create an instance of the Controller class
-
 class Controller
 {
 public:

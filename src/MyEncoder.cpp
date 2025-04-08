@@ -23,10 +23,10 @@ long Encoder::getCount()
 double Encoder::getVelocity()
 {
     th = _encoder.getCount() * 2 * PI / _ENC_RES; // Convert count to radians
-    if (micros() - w_time >= 100 * 1e3) // Replace with actual condition
+    if (micros() - w_time >= 100 * 1e3)
     {
         w_raw = (th - th_prev) / ((micros() - w_time) * 1e-6); // Calculate the unfiltered velocity
-        w = alpha * w_raw + (1 - alpha) * w;                   // Apply the filter
+        w = alpha * w_raw + (1 - alpha) * w;                   // Calculate the filtered velocity
         w_time = micros();
         th_prev = th;
     }

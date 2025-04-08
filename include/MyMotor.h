@@ -11,8 +11,6 @@
 #define PWM1_A 0 // PWM Channel attached to MOT1_A
 #define PWM1_B 1 // PWM Channel attached to MOT1_B
 
-Motor motor1(MOT1_A, MOT1_B, PWM1_A, PWM1_B); // Create an instance of the Motor class
-
 class Motor
 {
 public:

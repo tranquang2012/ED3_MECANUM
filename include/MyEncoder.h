@@ -14,13 +14,6 @@
 #define ENC1_B 22 // Pin used on ESP32 for the ENC1_B
 
 // ==============================================
-// Variable definitions for the encoders
-// ==============================================
-volatile long EncoderTick1;       // Encoder tick count for encoder 1
-double w1;                        // Angular velocity for encoder 1
-Encoder encoder1(ENC1_A, ENC1_B); // Create an instance of the Encoder class
-
-// ==============================================
 // Encoder class definition
 // ==============================================
 class Encoder
