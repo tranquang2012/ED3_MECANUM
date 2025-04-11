@@ -1,21 +1,9 @@
 #ifndef MY_ENCODER_H // Standard guard while writing a library to prevent multiple inclusions of this header file
 #define MY_ENCODER_H
 
-// ==============================================
-// Include the necessary libraries
-// ==============================================
 #include <Arduino.h>      // Arduino library for basic functions
 #include <ESP32Encoder.h> // ESP32Encoder library for handling encoders
 
-// ==============================================
-// Pin definitions for the encoders
-// ==============================================
-#define ENC1_A 23 // Pin used on ESP32 for the ENC1_A
-#define ENC1_B 22 // Pin used on ESP32 for the ENC1_B
-
-// ==============================================
-// Encoder class definition
-// ==============================================
 class Encoder
 {
 public:
@@ -29,7 +17,7 @@ private:
     int _ENC_RES = 330;                   // Encoder resolution
     unsigned long w_time;                 // Time variable used to calculate the velocity
     double th, th_prev, w, w_prev, w_raw; // Variables used to calculate the velocity
-    double alpha = .90;                   // Filter coefficient
+    double alpha = .95;                   // Filter coefficient
     ESP32Encoder _encoder;                // ESP32Encoder object to handle the encoder
 };
 

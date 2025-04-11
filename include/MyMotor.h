@@ -3,14 +3,6 @@
 
 #include <Arduino.h>
 
-// Pin definitions for the motors
-#define MOT1_A 16 // Pin used on ESP32 for the MOT1_A
-#define MOT1_B 4  // Pin used on ESP32 for the MOT1_B
-
-// PWM Channel definitions for the motors
-#define PWM1_A 0 // PWM Channel attached to MOT1_A
-#define PWM1_B 1 // PWM Channel attached to MOT1_B
-
 class Motor
 {
 public:
