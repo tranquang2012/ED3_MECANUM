@@ -20,6 +20,6 @@
 // ==============================================
 // Variables
 // ==============================================
-unsigned long Serial_time = 0; // time in us
-double w1, w1_ref, MOT1_cmd;   // Reference and command for the motor
+unsigned long Serial_time = 0; // Serial time in us
+double w1, w1_ref, MOT1_cmd;   // Speed, reference ,and command for the motor 1
 volatile long EncoderTick1;    // Encoder tick count for encoder 1

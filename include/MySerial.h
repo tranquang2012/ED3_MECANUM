@@ -3,7 +3,7 @@
 
 #include <Arduino.h>
 
-void SerialBegin();    // Function to initialize the serial communication
+void SerialBegin();     // Function to initialize the serial communication
 void SerialDataPrint(); // Function to print the data to the Serial Monitor
 void SerialDataWrite(); // Function to print the data to the Serial Monitor
 
