@@ -1,12 +1,16 @@
-#include "MySerial.h"
+#include "MyEncoder.h"    // Library for the encoder
+#include "MyMotor.h"      // Library for the motor
+#include "MyController.h" // Library for the controller
+#include "MySerial.h"     // Library for serial communication
+#include "MySetup.h"     // Configuration and pin definitions
 
 // External variables for all 4 motors - defined in MySetup.h
-extern double w1, w1_ref, MOT1_cmd; 
-extern double w2, w2_ref, MOT2_cmd; 
-extern double w3, w3_ref, MOT3_cmd; 
-extern double w4, w4_ref, MOT4_cmd; 
-extern volatile long EncoderTick1, EncoderTick2, EncoderTick3, EncoderTick4;
-extern unsigned long Serial_time;
+// extern double w1, w1_ref, MOT1_cmd; 
+// extern double w2, w2_ref, MOT2_cmd; 
+// extern double w3, w3_ref, MOT3_cmd; 
+// extern double w4, w4_ref, MOT4_cmd; 
+// extern volatile long EncoderTick1, EncoderTick2, EncoderTick3, EncoderTick4;
+// extern unsigned long Serial_time;
 
 void SerialBegin() // Function to initialize the serial communication
 {
@@ -22,14 +26,37 @@ void SerialDataPrint() // Function to print the data to the Serial Monitor
         Serial_time = micros();
         
 #ifdef SERIAL_CONTROL
-        // Original format for Serial Control Mode: -0.00   1.00    255.00  0
+        // Enhanced format showing all 4 motors for Serial Control Mode
+        Serial.print("M1:");
         Serial.print(w1);
-        Serial.print("\t");
+        Serial.print("/");
         Serial.print(w1_ref);
-        Serial.print("\t");
+        Serial.print("/");
         Serial.print(MOT1_cmd);
         Serial.print("\t");
-        Serial.print(EncoderTick1);
+        
+        Serial.print("M2:");
+        Serial.print(w2);
+        Serial.print("/");
+        Serial.print(w2_ref);
+        Serial.print("/");
+        Serial.print(MOT2_cmd);
+        Serial.print("\t");
+        
+        Serial.print("M3:");
+        Serial.print(w3);
+        Serial.print("/");
+        Serial.print(w3_ref);
+        Serial.print("/");
+        Serial.print(MOT3_cmd);
+        Serial.print("\t");
+        
+        Serial.print("M4:");
+        Serial.print(w4);
+        Serial.print("/");
+        Serial.print(w4_ref);
+        Serial.print("/");
+        Serial.print(MOT4_cmd);
         Serial.println();
 #endif
 
@@ -62,6 +89,7 @@ void SerialDataPrint() // Function to print the data to the Serial Monitor
         Serial.print("M4: ");
         Serial.print(w4);
         Serial.print("/");
+    
         Serial.print(w4_ref);
         Serial.print("/");
         Serial.print(MOT4_cmd);
@@ -89,15 +117,52 @@ void SerialDataWrite()
             }
             
 #ifdef SERIAL_CONTROL
-            // Simple Serial Control Mode - Original q3, q5 commands
+            // Add debug message for received command
+            Serial.println("DEBUG: Received command '" + String(command) + "' with speed " + String(speed));
+            
+            // Extended Serial Control Mode - Individual motor commands + movement commands
             switch (command)
             {
-            case 'q':               
+            case 'q': // Motor 1 individual control              
                 w1_ref = speed;
                 Serial.println("Motor 1 set to: " + String(speed));
                 break;
+            case 'w': // Motor 2 individual control
+                w2_ref = speed;
+                Serial.println("Motor 2 set to: " + String(speed));
+                break;
+            case 'e': // Motor 3 individual control
+                w3_ref = speed;
+                Serial.println("Motor 3 set to: " + String(speed));
+                break;
+            case 'r': // Motor 4 individual control
+                w4_ref = speed;
+                Serial.println("Motor 4 set to: " + String(speed));
+                break;
+            case 'f': // Forward movement
+                Serial.println("Calling moveForward(" + String(speed > 0 ? speed : 3.0) + ")");
+                moveForward(speed > 0 ? speed : 3.0);
+                break;
+            case 'b': // Backward movement
+                Serial.println("Calling moveBackward(" + String(speed > 0 ? speed : 3.0) + ")");
+                moveBackward(speed > 0 ? speed : 3.0);
+                break;
+            case 'l': // Turn left
+                Serial.println("Calling turnLeft(" + String(speed > 0 ? speed : 3.0) + ")");
+                turnLeft(speed > 0 ? speed : 3.0);
+                break;
+            case 'g': // Turn right
+                Serial.println("Calling turnRight(" + String(speed > 0 ? speed : 3.0) + ")");
+                turnRight(speed > 0 ? speed : 3.0);
+                break;
+            case 's': // Stop all motors
+                Serial.println("Calling stopAllMotors()");
+                stopAllMotors();
+                break;
             default:
-                Serial.println("Send q5 to rotate motor at 5rad/s, q-10 for -10rad/s");
+                Serial.println("Unknown command: '" + String(command) + "'");
+                Serial.println("Commands: q/w/e/r(motors 1-4), f/b(move), l/g(turn), s(stop)");
+                Serial.println("Example: q5 (motor1=5), f3 (forward at 3), s (stop)");
                 break;
             }
 #endif

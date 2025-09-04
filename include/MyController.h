@@ -12,7 +12,7 @@ public:
     void compute();                           // Method to compute the PID control output
 
 private:
-    double _kp = 25., _ki = 0.5, _kd = 2.0; // PID Parameters - tuned for 0.5-8.0 rad/s range
+    double _kp = 5.0, _ki = 0.1, _kd = 0.5; // More conservative PID values for stability
     double *_input, *_output, *_ref;    // Input variable for the PID controller
     int _direct = 0;                    // Direction of the PID controller
     PID _PID;                           // PID object to handle the PID control

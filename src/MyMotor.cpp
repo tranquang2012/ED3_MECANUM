@@ -24,14 +24,32 @@ void Motor::begin()
 
 void Motor::send_pwm(double motor_cmd)
 {
+    // Only debug when motor_cmd is close to zero or changing significantly
+    static double last_cmd = 999;
+    if (abs(motor_cmd) < 0.1 || abs(motor_cmd - last_cmd) > 10) {
+        Serial.print("🔧 PWM: ");
+        Serial.print(motor_cmd);
+        if (motor_cmd == 0) {
+            Serial.println(" -> STOP: A=0, B=0");
+        } else {
+            Serial.println("");
+        }
+        last_cmd = motor_cmd;
+    }
+    
     if (motor_cmd < 0)
     {
         ledcWrite(_PWMA, 0);
         ledcWrite(_PWMB, abs(motor_cmd));
     }
-    else
+    else if (motor_cmd > 0)
     {
         ledcWrite(_PWMB, 0);
         ledcWrite(_PWMA, abs(motor_cmd));
+    }
+    else // motor_cmd == 0
+    {
+        ledcWrite(_PWMA, 0);
+        ledcWrite(_PWMB, 0);
     }
 }
