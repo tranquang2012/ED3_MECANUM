@@ -35,13 +35,13 @@
                 <h4>🎚️ Master Speed Control</h4>
                 <div class="master-speed-control">
                     <div class="speed-control">
-                        <label>🚗 Robot Speed: <span id="masterSpeedValue">2.0</span> rad/s</label>
-                        <input type="range" id="masterSpeedSlider" class="slider" min="0.5" max="8.0" step="0.1" value="2.0" 
+                        <label>🚗 Robot Speed: <span id="masterSpeedValue">75</span> rad/s</label>
+                        <input type="range" id="masterSpeedSlider" class="slider" min="50" max="100" step="1" value="75" 
                                oninput="updateMasterSpeed(this.value)">
                         <div class="speed-indicators">
-                            <span>0.5 (Slow)</span>
-                            <span>4.0 (Medium)</span>
-                            <span>8.0 (Fast)</span>
+                            <span>50 (Slow)</span>
+                            <span>75 (Medium)</span>
+                            <span>100 (Fast)</span>
                         </div>
                         <p class="speed-description">
                             💡 <strong>How it works:</strong> Set your desired speed, then press movement buttons. 

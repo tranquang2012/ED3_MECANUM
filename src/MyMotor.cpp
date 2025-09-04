@@ -1,4 +1,5 @@
 #include "MyMotor.h"
+#include "MySetup.h"
 
 Motor::Motor(byte MOTA, byte MOTB, int PWMA, int PWMB)
 
@@ -24,10 +25,11 @@ void Motor::begin()
 
 void Motor::send_pwm(double motor_cmd)
 {
+#ifdef SERIAL_CONTROL
     // Only debug when motor_cmd is close to zero or changing significantly
     static double last_cmd = 999;
     if (abs(motor_cmd) < 0.1 || abs(motor_cmd - last_cmd) > 10) {
-        Serial.print("🔧 PWM: ");
+        Serial.print("PWM: ");
         Serial.print(motor_cmd);
         if (motor_cmd == 0) {
             Serial.println(" -> STOP: A=0, B=0");
@@ -36,6 +38,7 @@ void Motor::send_pwm(double motor_cmd)
         }
         last_cmd = motor_cmd;
     }
+#endif
     
     if (motor_cmd < 0)
     {

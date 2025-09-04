@@ -39,8 +39,8 @@
 // Control Mode Configuration
 // ==============================================
 // Uncomment ONE of the following modes:
-// #define WEBSOCKET_CONTROL  // Enable WebSocket remote control via web interface
-#define SERIAL_CONTROL     // Enable Serial command control (q3, q5, etc.)
+#define WEBSOCKET_CONTROL  // Enable WebSocket remote control via web interface
+// #define SERIAL_CONTROL     // Enable Serial command control (q3, q5, etc.)
 
 // ==============================================
 // Variables for 4 motors (extern declarations)
