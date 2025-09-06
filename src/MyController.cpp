@@ -19,3 +19,11 @@ void Controller::compute()
     _PID.SetTunings(_kp, _ki, _kd); // Set the PID tuning parameters
     _PID.Compute();                 // Compute the PID control output
 }
+
+void Controller::reset()
+{
+    // reset PID controllers
+    _PID.SetMode(MANUAL);
+    *_output = 0;  // clear output
+    _PID.SetMode(AUTOMATIC);
+}

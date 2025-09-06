@@ -35,8 +35,8 @@ volatile long EncoderTick4 = 0;
 // WiFi Configuration
 
 // WiFi credentials
-const char* ssid = "wifi_name";        // Replace with your actual WiFi network name
-const char* password = "wifi_password"; // Replace with your actual WiFi password
+const char* ssid = "wifi_name";        
+const char* password = "wifi_password"; 
 
 // WebSocket server on port 81
 WebSocketsServer webSocket = WebSocketsServer(81);
@@ -107,7 +107,22 @@ void spinRight(double speed) {
 
 void stopAllMotors() {
   Serial.println("stopAllMotors() called");
+  
+  // Reset pid controllers
+  controller1.reset();
+  controller2.reset(); 
+  controller3.reset();
+  controller4.reset();
+  
+  // set target speeds to zero
   setMotorSpeeds(0, 0, 0, 0);
+  
+  // force immediate PWM stop
+  motor1.send_pwm(0);
+  motor2.send_pwm(0); 
+  motor3.send_pwm(0);
+  motor4.send_pwm(0);
+  
   Serial.println("All Motors Stopped");
 }
 

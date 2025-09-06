@@ -40,6 +40,11 @@ void Motor::send_pwm(double motor_cmd)
     }
 #endif
     
+    // apply deadband, if command is very small, force it to zero for complete stop
+    if (abs(motor_cmd) < 5.0) {
+        motor_cmd = 0;
+    }
+    
     if (motor_cmd < 0)
     {
         ledcWrite(_PWMA, 0);
@@ -52,6 +57,7 @@ void Motor::send_pwm(double motor_cmd)
     }
     else // motor_cmd == 0
     {
+        // ensure complete stop by setting both channels to 0
         ledcWrite(_PWMA, 0);
         ledcWrite(_PWMB, 0);
     }

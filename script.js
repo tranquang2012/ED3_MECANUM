@@ -6,7 +6,7 @@ let isConnected = false;
 let masterSpeed = 75; // Master speed for all movements
 
 // Replace with your ESP32's IP address
-const ESP32_IP = '192.168.1.100'; // Change this to your ESP32's IP
+const ESP32_IP = 'your_ESP32_address'; // should pop up when successfully connected to WiFi, and after doing pio device monitor
 
 function connectWebSocket() {
     socket = new WebSocket(`ws://${ESP32_IP}:81`);
