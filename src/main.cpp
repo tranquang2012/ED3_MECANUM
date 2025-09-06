@@ -17,8 +17,8 @@
 // ===================================================
 
 // Standard WiFi credentials - CHANGE THESE TO YOUR WIFI
-const char* ssid = "Your_WiFi_Name";        // Replace with your actual WiFi network name
-const char* password = "Your_WiFi_Password"; // Replace with your actual WiFi password
+const char* ssid = "Xiaomi 11T";        // Replace with your actual WiFi network name
+const char* password = "quang1204"; // Replace with your actual WiFi password
 
 // WebSocket server on port 81
 WebSocketsServer webSocket = WebSocketsServer(81);

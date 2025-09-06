@@ -7,13 +7,13 @@ let statusUpdateInterval = null;
 let masterSpeed = 2.0; // Master speed for all movements (like toy car throttle)
 
 // Replace with your ESP32's IP address
-const ESP32_IP = '192.168.1.100'; // Change this to your ESP32's IP
+const ESP32_IP = 'YOUR_ACTUAL_IP_HERE'; // Change this to your ESP32's IP from Serial Monitor
 
 function connectWebSocket() {
     socket = new WebSocket(`ws://${ESP32_IP}:81`);
     
     socket.onopen = function(event) {
-        console.log('✅ Connected to ESP32');
+        console.log('Connected to ESP32');
         isConnected = true;
         updateConnectionStatus();
     };
