@@ -6,47 +6,68 @@
 // The following libraries are custom libraries.
 // Header files (.h) contain function declarations, and are located in the include folder
 // Sources (.cpp) contain function definitions, and are located in the src folder
-#include "MySetup.h"      // Pin and variable definitions
-#include "MyEncoder.h"    // Library for the encoder
-#include "MyMotor.h"      // Library for the motor
-#include "MyController.h" // Library for the controller
-#include "MySerial.h"     // Library for serial communication
+#include "MySetup.h"      
+#include "MyEncoder.h"    
+#include "MyMotor.h"      
+#include "MyController.h" 
+#include "MySerial.h"     
+
+
+unsigned long Serial_time = 0; // Serial time in us
+
+// Motor 1 (Rear Right) variables
+double w1 = 0, w1_ref = 0, MOT1_cmd = 0;   
+volatile long EncoderTick1 = 0;    
+
+// Motor 2 (Front Right) variables
+double w2 = 0, w2_ref = 0, MOT2_cmd = 0;   
+volatile long EncoderTick2 = 0;    
+
+// Motor 3 (Rear Left) variables
+double w3 = 0, w3_ref = 0, MOT3_cmd = 0;   
+volatile long EncoderTick3 = 0;    
+
+// Motor 4 (Front Left) variables
+double w4 = 0, w4_ref = 0, MOT4_cmd = 0;   
+volatile long EncoderTick4 = 0;
 
 // ===================================================
 // WiFi Configuration
 // ===================================================
 
 // Standard WiFi credentials - CHANGE THESE TO YOUR WIFI
-const char* ssid = "Xiaomi 11T";        // Replace with your actual WiFi network name
-const char* password = "quang1204"; // Replace with your actual WiFi password
+const char* ssid = "wifi_name";        // Replace with your actual WiFi network name
+const char* password = "wifi_password"; // Replace with your actual WiFi password
 
 // WebSocket server on port 81
 WebSocketsServer webSocket = WebSocketsServer(81);
 
 // Create instances for all 4 motors
-Encoder encoder1(ENC1_A, ENC1_B);                // Motor 1 - Front Left
-Encoder encoder2(ENC2_A, ENC2_B);                // Motor 2 - Front Right  
-Encoder encoder3(ENC3_A, ENC3_B);                // Motor 3 - Rear Left
-Encoder encoder4(ENC4_A, ENC4_B);                // Motor 4 - Rear Right
+Encoder encoder1(ENC1_A, ENC1_B);                // Motor 1 - Rear Right  (Driver1)
+Encoder encoder2(ENC2_A, ENC2_B);                // Motor 2 - Front Right (Driver2)
+Encoder encoder3(ENC3_A, ENC3_B);                // Motor 3 - Rear Left   (Driver3)
+Encoder encoder4(ENC4_A, ENC4_B);                // Motor 4 - Front Left  (Driver4)
 
-Motor motor1(MOT1_A, MOT1_B, PWM1_A, PWM1_B);    // Motor 1 - Front Left
-Motor motor2(MOT2_A, MOT2_B, PWM2_A, PWM2_B);    // Motor 2 - Front Right
-Motor motor3(MOT3_A, MOT3_B, PWM3_A, PWM3_B);    // Motor 3 - Rear Left  
-Motor motor4(MOT4_A, MOT4_B, PWM4_A, PWM4_B);    // Motor 4 - Rear Right
+Motor motor1(MOT1_A, MOT1_B, PWM1_A, PWM1_B);    // Motor 1 - Rear Right  (Driver1)
+Motor motor2(MOT2_A, MOT2_B, PWM2_A, PWM2_B);    // Motor 2 - Front Right (Driver2)
+Motor motor3(MOT3_A, MOT3_B, PWM3_A, PWM3_B);    // Motor 3 - Rear Left   (Driver3)
+Motor motor4(MOT4_A, MOT4_B, PWM4_A, PWM4_B);    // Motor 4 - Front Left  (Driver4)
 
-Controller controller1(&w1, &MOT1_cmd, &w1_ref); // Controller for Motor 1
-Controller controller2(&w2, &MOT2_cmd, &w2_ref); // Controller for Motor 2
-Controller controller3(&w3, &MOT3_cmd, &w3_ref); // Controller for Motor 3
-Controller controller4(&w4, &MOT4_cmd, &w4_ref); // Controller for Motor 4
+Controller controller1(&w1, &MOT1_cmd, &w1_ref); // Controller for Motor 1 (Rear Right)
+Controller controller2(&w2, &MOT2_cmd, &w2_ref); // Controller for Motor 2 (Front Right)
+Controller controller3(&w3, &MOT3_cmd, &w3_ref); // Controller for Motor 3 (Rear Left)
+Controller controller4(&w4, &MOT4_cmd, &w4_ref); // Controller for Motor 4 (Front Left)
 
 // ==============================================
 // High-level movement functions
 // ==============================================
 void setMotorSpeeds(double frontLeft, double frontRight, double rearLeft, double rearRight) {
-  w1_ref = frontLeft;   
-  w2_ref = frontRight;  
-  w3_ref = rearLeft;    
-  w4_ref = rearRight;   
+  w1_ref = rearRight;   // Motor 1 = Rear Right  (Driver1)
+  w2_ref = frontRight;  // Motor 2 = Front Right (Driver2)
+  w3_ref = rearLeft;    // Motor 3 = Rear Left   (Driver3)
+  w4_ref = frontLeft;   // Motor 4 = Front Left  (Driver4)
+  Serial.println("setMotorSpeeds: M1=" + String(rearRight) + " M2=" + String(frontRight) + 
+                 " M3=" + String(rearLeft) + " M4=" + String(frontLeft));
 }
 
 void moveForward(double speed) {
@@ -276,6 +297,7 @@ void setup()
 
 #ifdef SERIAL_CONTROL
   Serial.println("=== SERIAL CONTROL MODE ===");
+
   Serial.println("Commands:");
   Serial.println("q5 = Motor 1 at 5 rad/s");
   Serial.println("w5 = Motor 2 at 5 rad/s"); 

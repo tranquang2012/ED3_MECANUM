@@ -1,29 +1,40 @@
 
 // ==============================================
 // Pin definitions for the encoders (4 motors = 4 encoders)
-// Based on ESP32-CH340C-Type-C pinout diagram
 // ==============================================
-#define ENC1_A 7  // D26 - Motor1_ENC1 (Motor 1 - Front Left)
-#define ENC1_B 8  // D25 - Motor1_ENC2 (Motor 1 - Front Left)
-#define ENC2_A 5  // D27 - Motor2_ENC1 (Motor 2 - Front Right)
-#define ENC2_B 6  // D14 - Motor2_ENC2 (Motor 2 - Front Right)
-#define ENC3_A 25 // D19 - Motor3_ENC1 (Motor 3 - Rear Left)
-#define ENC3_B 26 // D21 - Motor3_ENC2 (Motor 3 - Rear Left)
-#define ENC4_A 23 // D18 - Motor4_ENC1 (Motor 4 - Rear Right)
-#define ENC4_B 24 // D5  - Motor4_ENC2 (Motor 4 - Rear Right)
+
+
+// need confirmation
+#define ENC1_A 26 // D26 - Motor1_ENC1 (Driver1 - Rear Right)
+#define ENC1_B 25 // D25 - Motor1_ENC2 (Driver1 - Rear Right)
+
+#define ENC2_A 14 // D14 - Motor2_ENC1 (Driver2 - Front Right)
+#define ENC2_B 27 // D27 - Motor2_ENC2 (Driver2 - Front Right)
+
+#define ENC3_A 21 // D21 - Motor3_ENC1 (Driver3 - Rear Left)
+#define ENC3_B 19 // D19 - Motor3_ENC2 (Driver3 - Rear Left)
+
+#define ENC4_A 18 // D18 - Motor4_ENC1 (Driver4 - Front Left)
+#define ENC4_B 5  // D5  - Motor4_ENC2 (Driver4 - Front Left)
 
 // ==============================================
 // Pin definitions for the motors (4 motors)
-// Based on ESP32-CH340C-Type-C pinout diagram
 // ==============================================
-#define MOT1_A 10 // D32 - Driver1_LPWM (Motor 1 - Front Left)
-#define MOT1_B 9  // D33 - Driver1_RPWM (Motor 1 - Front Left)
-#define MOT2_A 4  // D12 - Driver2_LPWM (Motor 2 - Front Right)
-#define MOT2_B 3  // D13 - Driver2_RPWM (Motor 2 - Front Right)
-#define MOT3_A 21 // D16 - Driver4_LPWM (Motor 3 - Rear Left)
-#define MOT3_B 22 // D17 - Driver4_RPWM (Motor 3 - Rear Left)
-#define MOT4_A 29 // D22 - Driver3_LPWM (Motor 4 - Rear Right)
-#define MOT4_B 30 // D23 - Driver3_RPWM (Motor 4 - Rear Right)
+
+
+// need confirmation
+#define MOT1_A 33 // D33 - Driver1_LPWM (Motor 1 - Rear Right)
+#define MOT1_B 32 // D32 - Driver1_RPWM (Motor 1 - Rear Right)
+
+#define MOT2_A 12 // D12 - Driver2_LPWM (Motor 2 - Front Right)
+#define MOT2_B 13 // D13 - Driver2_RPWM (Motor 2 - Front Right)
+
+#define MOT3_A 23 // D23 - Driver3_LPWM (Motor 3 - Rear Left)
+#define MOT3_B 22 // D22 - Driver3_RPWM (Motor 3 - Rear Left)
+
+#define MOT4_A 16 // D16 - Driver4_LPWM (Motor 4 - Front Left)
+#define MOT4_B 17 // D17 - Driver4_RPWM (Motor 4 - Front Left)
+
 
 // ==============================================
 // PWM Channel definitions for the motors (4 motors = 8 PWM channels)
@@ -41,8 +52,8 @@
 // Control Mode Configuration
 // ==============================================
 // Uncomment ONE of the following modes:
-#define WEBSOCKET_CONTROL  // Enable WebSocket remote control via web interface
-// #define SERIAL_CONTROL     // Enable Serial command control (q3, q5, etc.)
+// #define WEBSOCKET_CONTROL  // Enable WebSocket remote control via web interface
+#define SERIAL_CONTROL     // Enable Serial command control (q3, q5, etc.)
 
 // ==============================================
 // Variables for 4 motors
