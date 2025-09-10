@@ -58,23 +58,23 @@
 // ==============================================
 // Variables for 4 motors
 // ==============================================
-unsigned long Serial_time = 0; // Serial time in us
+extern unsigned long Serial_time;
 
 // Motor 1 (Front Left) variables
-double w1, w1_ref, MOT1_cmd;   
-volatile long EncoderTick1;    
+extern double w1, w1_ref, MOT1_cmd;   
+extern volatile long EncoderTick1;    
 
 // Motor 2 (Front Right) variables
-double w2, w2_ref, MOT2_cmd;   
-volatile long EncoderTick2;    
+extern double w2, w2_ref, MOT2_cmd;   
+extern volatile long EncoderTick2;    
 
 // Motor 3 (Rear Left) variables
-double w3, w3_ref, MOT3_cmd;   
-volatile long EncoderTick3;    
+extern double w3, w3_ref, MOT3_cmd;   
+extern volatile long EncoderTick3;    
 
 // Motor 4 (Rear Right) variables
-double w4, w4_ref, MOT4_cmd;   
-volatile long EncoderTick4;
+extern double w4, w4_ref, MOT4_cmd;   
+extern volatile long EncoderTick4;
 
 // ==============================================
 // High-level movement functions
